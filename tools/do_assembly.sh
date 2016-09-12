@@ -2,7 +2,7 @@
 
 #PBS -N RNA_Assembly
 #PBS -q WitsLong
-#PBS -l walltime=100:00:00,mem=24gb
+#PBS -l walltime=100:00:00,mem=100gb
 #PBS -l nodes=1:ppn=7
 
 #Folders needed
