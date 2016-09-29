@@ -28,10 +28,13 @@ do
         then
             rm $WORK_DIR/TRINITY_RESULTS/$file/trinity_out_dir/Trinity.fasta
         fi
-	
+
+	cp $DATA_DIR/$file/*filtered_R1.fastq $WORK_DIR/TRINITY_RESULTS/$file
+	cp $DATA_DIR/$file/*filtered_R2.fastq $WORK_DIR/TRINITY_RESULTS/$file
+
 	cd $WORK_DIR/TRINITY_RESULTS/$file
 
-        /opt/exp_soft/bioinf/trinity/Trinity --seqType fq --max_memory 24G --left $DATA_DIR/$file/*filtered_R1.fastq \
-        --right $DATA_DIR/$file/*filtered_R2.fastq --SS_lib_type RF --CPU 6
+        /opt/exp_soft/bioinf/trinity/Trinity --seqType fq --max_memory 24G --left *filtered_R1.fastq \
+        --right *filtered_R2.fastq --SS_lib_type RF --CPU 6
 
 done <"$samples"

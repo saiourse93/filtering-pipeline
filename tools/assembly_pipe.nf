@@ -24,15 +24,18 @@ process trinity {
 	val sample_dir
 
 	output:
-	file 'Trinity.fastq' into results 
-
+	file 'Trinity.fasta' into results
+ 
 	"""
 	cd $WORK_DIR/work
 	mkdir $sample_dir
 	cd $sample_dir
 
-	$Trinity --seqType fq --max_memory 24G --left $DATA_DIR/$sample_dir/*filtered_R1.fastq \
-	--right $DATA_DIR/$sample_dir/*filtered_R2.fastq --SS_lib_type RF --CPU 6
+	cp $DATA_DIR/$sample_dir/*filtered_R1.fastq $WORK_DIR/work/$sample_dir
+	cp $DATA_DIR/$sample_dir/*filtered_R2.fastq $WORK_DIR/work/$sample_dir
+
+	$Trinity --seqType fq --max_memory 24G --left *filtered_R1.fastq \
+	--right *filtered_R2.fastq --SS_lib_type RF --CPU 6
 	"""
 
 }
