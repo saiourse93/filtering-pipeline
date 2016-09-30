@@ -1,41 +1,58 @@
 #!/usr/bin/env nextflow
 
-sample_dir = Channel.from(
-           'CASE_01_ARM_001','CASE_02_BAK_001','CASE_04_ARM_001','CASE_06_ARM_001','CASE_07_BAK_001','CASE_09_BAK_001','CTRL_03_BAK_001',
-           'CTRL_08_BAK_001','CASE_01_BAK_001','CASE_03_ARM_001','CASE_04_BAK_001','CASE_06_ARM_002','CASE_08_ARM_001','CTRL_01_BAK_001',
-           'CTRL_05_BAK_001','CASE_01_BAK_002','CASE_03_ARM_002','CASE_05_ARM_001','CASE_06_BAK_001','CASE_08_BAK_001','CTRL_01_BAK_002',
-           'CTRL_06_BAK_001','CASE_02_ARM_001','CASE_03_BAK_001','CASE_05_BAK_001','CASE_07_ARM_001','CASE_09_ARM_001','CTRL_02_BAK_001',
-           'CTRL_07_BAK_001')
+the_read_pair = Channel.fromFilePairs('/global/blast/test_data/assembly/{CASE,CRTL}_*/*_filtered_R{1,2}.fastq')
 
-WORK_DIR='/home/mkhari/git/assembly-pipeline/tools'
-DATA_DIR='/global/blast/test_data/assembly'
 Trinity='/opt/exp_soft/bioinf/trinity/Trinity'
 
 process trinity {
-
 	executor = 'pbs'
 	queue = 'WitsLong'
-	cpus = 5
-	memory = '2GB'
-	time = '1h'
-	penv 'smp'
-               
+	cpus = 9
+	memory = '100GB'
+	time = '3h'
+
+	publishDir "$HOME/RESULTS" , mode:'symlink', overwrite: true               
+
 	input:
-	val sample_dir
+		set sample, file(reads) from the_read_pair
 
 	output:
-	file 'Trinity.fasta' into results
+		set sample, 'trinity_${sample}/Trinity.fasta' into assemblies
  
 	"""
-	cd $WORK_DIR/work
-	mkdir $sample_dir
-	cd $sample_dir
+	$Trinity --seqType fq --max_memory 100G --left ${reads[0]} --right ${reads[1]} --SS_lib_type RF --CPU 8
 
-	cp $DATA_DIR/$sample_dir/*filtered_R1.fastq $WORK_DIR/work/$sample_dir
-	cp $DATA_DIR/$sample_dir/*filtered_R2.fastq $WORK_DIR/work/$sample_dir
+	mkdir trinity_${sample}
 
-	$Trinity --seqType fq --max_memory 24G --left *filtered_R1.fastq \
-	--right *filtered_R2.fastq --SS_lib_type RF --CPU 6
+	cp trinity_out_dir/Trinity.fasta  trinity_${sample}/Trinity.fasta
 	"""
+}
+
+// assemblies.subscribe{ println "$it" }
+
+process mpi_blast {
+	executor = 'pbs'
+	queue = 'WitsLong'
+	cpus = 9
+	memory = '100GB'
+	time = '3h'
+
+	publishDir "$HOME/RESULTS" , mode:'symlink', overwrite: true
+
+	input:
+		set sample, file(fasta) from assemblies
+	output:
+		set sample, 'Blast_${sample}/results.bln' into blast_hits
+
+    """
+    blastn -query ${fasta} -db pathogens_32 -out results.bln -evalue 1e-15 -outfmt 6 -num_alignments 200 -num_threads 8
+
+    mkdir Blast_${sample}
+
+    cp results.bln  Blast_${sample}/results.bln
+
+    """
 
 }
+
+blast_hits.subscribe{ println "$it" }
