@@ -4,6 +4,8 @@ the_read_pair = Channel.fromFilePairs('/global/blast/test_data/assembly/{CASE,CR
 
 Trinity='/opt/exp_soft/bioinf/trinity/Trinity'
 
+OUT_DIR="$HOME/RESULTS"
+
 process trinity {
 	executor = 'pbs'
 	queue = 'WitsLong'
@@ -11,24 +13,23 @@ process trinity {
 	memory = '100GB'
 	time = '3h'
 
-	publishDir "$HOME/RESULTS" , mode:'symlink', overwrite: true               
+	publishDir "$OUT_DIR" , mode:'symlink', overwrite: true               
 
 	input:
 		set sample, file(reads) from the_read_pair
 
 	output:
-		set sample, 'trinity_${sample}/Trinity.fasta' into assemblies
+		set sample, "trinity_${sample}/Trinity.fasta" into assemblies
  
 	"""
 	$Trinity --seqType fq --max_memory 100G --left ${reads[0]} --right ${reads[1]} --SS_lib_type RF --CPU 8
 
 	mkdir trinity_${sample}
-
-	cp trinity_out_dir/Trinity.fasta  trinity_${sample}/Trinity.fasta
+	cp trinity_out_dir/Trinity.fasta trinity_${sample}
 	"""
 }
 
-// assemblies.subscribe{ println "$it" }
+//assemblies.subscribe{ println "$it" }
 
 process mpi_blast {
 	executor = 'pbs'
@@ -37,20 +38,18 @@ process mpi_blast {
 	memory = '100GB'
 	time = '3h'
 
-	publishDir "$HOME/RESULTS" , mode:'symlink', overwrite: true
+	publishDir "$OUT_DIR" , mode:'symlink', overwrite: true
 
 	input:
 		set sample, file(fasta) from assemblies
 	output:
-		set sample, 'Blast_${sample}/results.bln' into blast_hits
+		set sample, "blast_${sample}/results.bln" into blast_hits
 
     """
     blastn -query ${fasta} -db pathogens_32 -out results.bln -evalue 1e-15 -outfmt 6 -num_alignments 200 -num_threads 8
 
-    mkdir Blast_${sample}
-
-    cp results.bln  Blast_${sample}/results.bln
-
+    mkdir blast_${sample}
+    cp results.bln blast_${sample}
     """
 
 }
