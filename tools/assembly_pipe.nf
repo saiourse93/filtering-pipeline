@@ -9,9 +9,11 @@ OUT_DIR="$HOME/RESULTS"
 process trinity {
 	executor = 'pbs'
 	queue = 'WitsLong'
-	cpus = 9
+	cpus = 11
 	memory = '100GB'
 	time = '3h'
+	errorStrategy 'retry'
+	maxRetries 3
 
 	publishDir "$OUT_DIR" , mode:'symlink', overwrite: true               
 
@@ -22,7 +24,7 @@ process trinity {
 			set sample, "trinity_${sample}/Trinity.fasta" into assemblies
  
  """
- $Trinity --seqType fq --max_memory 100G --left ${reads[0]} --right ${reads[1]} --SS_lib_type RF --CPU 8
+ $Trinity --seqType fq --max_memory 100G --left ${reads[0]} --right ${reads[1]} --SS_lib_type RF --CPU 9
 
  mkdir trinity_${sample}
  cp trinity_out_dir/Trinity.fasta trinity_${sample}
@@ -34,9 +36,11 @@ process trinity {
 process mpi_blast {
 	executor = 'pbs'
 	queue = 'WitsLong'
-	cpus = 9
+	cpus = 11
 	memory = '100GB'
 	time = '3h'
+	errorStrategy 'retry'
+	maxRetries 3
 
 	publishDir "$OUT_DIR" , mode:'symlink', overwrite: true
 
@@ -46,7 +50,7 @@ process mpi_blast {
 			set sample, "blast_${sample}/results.bln" into blast_hits
 
     """
-    blastn -query ${fasta} -db pathogens_32 -out results.bln -evalue 1e-15 -outfmt 6 -num_alignments 200 -num_threads 8
+    blastn -query ${fasta} -db pathogens_32 -out results.bln -evalue 1e-15 -outfmt 6 -num_alignments 200 -num_threads 9
 
     mkdir blast_${sample}
     cp results.bln blast_${sample}
