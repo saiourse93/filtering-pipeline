@@ -15,4 +15,6 @@ Assembly pipeline for exogenous reads filtered from human RNA-seq data.
 
 ## Databases and Reference Sequences
 
+# Pipeline Execution
 
+# Pipeline Output
