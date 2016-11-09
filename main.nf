@@ -3,7 +3,7 @@
 params.imsa = "$PWD/imsa" // The IMSA pipeline will come packaged! User will edit the config file.
 params.data = "/spaces/phelelani/ssc_data/data_trimmed/inflated" // User to provide folder with own data. 
 params.actions = "$PWD/actions.txt" // Action file will come packaged. User will edit.
-params.out = "$HOME/iltering_results"
+params.out = "$HOME/filtering_results"
 
 imsa_path = params.imsa
 out_path = file(params.out)
