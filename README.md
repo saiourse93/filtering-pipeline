@@ -1,5 +1,5 @@
 # Filtering Pipeline
-Assembly pipeline for exogenous reads filtered from human RNA-seq data.
+This *Filtering Pipeline* is a modified version of the IMSA (Intergrated Metagenomics Sequence Analysis) pipeline. Assembly pipeline for exogenous reads filtered from human RNA-seq data.
 
 # Dependencies
 
