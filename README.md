@@ -15,6 +15,11 @@ Assembly pipeline for exogenous reads filtered from human RNA-seq data.
 
 ## Databases and Reference Sequences
 
+# Docker Image
+**To be done
+
+# Configuration
+
 # Pipeline Execution
 
 # Pipeline Output
