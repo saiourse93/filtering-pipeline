@@ -23,11 +23,8 @@ The **IMSA on Nextflow** pipeline depends on the following programs and database
 *Coming soon...*
 
 # Configuration
-In order to use the **IMSA on Nextflow** pipeline, the following python script of IMSA have to be configured with program and database paths required by IMSA to run:
+In order to use the **IMSA on Nextflow** pipeline, the following `config.py` python script of IMSA has to be configured with program and database paths required by IMSA to run:
 ## `config.py`
-First, configure first line of every python script in the IMSA pipeline folder to point to the default python (2.6 or 2.7) interpreter. Using terminal, "`cd`" into the imsa folder and run the following command:
-
-`for script in $(ls *.py); do sed -i ’s|"#!/opt/exp_soft/python27/bin/python"|"#!<path/to/your/python>"|g’ $script; done`
 
 After changing the line, edit the following variables in the `config.py` python script.
 
@@ -43,6 +40,10 @@ After changing the line, edit the following variables in the `config.py` python 
 | `PATH_TO_BLASTN` | R |
 | `PATH_TO_BLAT` | R |
 | `PIPELINE_DIRECTORY` | R |
+
+After configuring the `config.py` script of IMSA, change the first line of every `python` script in the IMSA pipeline folder to point to the default `python` (2.6 or 2.7) interpreter. Using terminal, "`cd`" into the `imsa` folder packaged with this **IMSA on Nextflow** pipeline and run the following command (replace </path/to/python> with the full path to your `python`):
+
+`for script in $(ls *.py); do sed -i ’s|"#!/opt/exp_soft/python27/bin/python"|"#!<path/to/your/python>"|g’ $script; done`
 
 
 ## ```main.nf```
