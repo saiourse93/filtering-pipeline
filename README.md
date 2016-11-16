@@ -2,7 +2,7 @@
 The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis (IMSA)](https://sourceforge.net/projects/arron-imsa/) metagenomics pipeline developed by [Aaron Lab](http://dermatology.ucsf.edu/arronlab/Arron_Lab.html). The IMSA pipeline takes as input reads from high throughput sequencing and filters out exogeneous sequences in a host-genomic background. Assembly pipeline for exogenous reads filtered from human RNA-seq data.
 
 # Dependencies
-The **IMSA on Nextflow** pipeline depends on the following:
+The **IMSA on Nextflow** pipeline depends on the following programs and databases:
 ## Programs:
 1. Modified `IMSA pipeline` scripts (available on this repository)
 2. [`Python 2.6 - 2.7`](https://www.python.org/)
@@ -23,7 +23,7 @@ The **IMSA on Nextflow** pipeline depends on the following:
 *Coming soon...*
 
 # Configuration
-In order to use the **IMSA on Nextflow** pipeline, the following python script of IMSA and nextflow script need to be configured with program paths, database paths and resources required for each process in the nextflow pipeline:
+In order to use the **IMSA on Nextflow** pipeline, the following python script of IMSA have to be configured with program and database paths required by IMSA to run:
 ## `config.py`
 First, configure first line of every python script in the IMSA pipeline folder to point to the default python (2.6 or 2.7) interpreter. Using terminal, "`cd`" into the imsa folder and run the following command:
 
