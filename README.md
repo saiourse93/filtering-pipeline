@@ -32,15 +32,14 @@ First, configure first line of every python script in the IMSA pipeline folder t
 After changing the line, edit the following variables in the `config.py` python script.
 
 | Variable | Definition |
-| :-------- | ---------- |
-| `SRC_DIRECTORY` | 
-| `BOWTIE_DATABASES` |
-| `BOWTIE2_DATABASES` |
-| `BLAT_DATABASES` |
-| `BLAT_OOC_FILES` |
-| `BLAST_DATABASES` |
-| `BLAST_TAX_DB` |
-| `PATH_TO_BOWTIE2` |
+| :========= | :========= |
+| `SRC_DIRECTORY` | Full path of the directory that contains the 'imsa' directory. | 
+| `BOWTIE2_DATABASES` | Full path to the `bowtie2` ebwt index files. |
+| `BLAT_DATABASES` | Full path to the `blat` 2bit index files. |
+| `BLAT_OOC_FILES` | Full path to the `blat`  ooc file for the database. |
+| `BLAST_DATABASES` | Full path to the BLAST databases. |
+| `BLAST_TAX_DB` | Full path the BLAST taxonomy database. |
+| `PATH_TO_BOWTIE2` | 
 | `PATH_TO_BLASTN` |
 | `PATH_TO_BLAT` |
 | `PIPELINE_DIRECTORY` | 
