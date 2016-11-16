@@ -29,7 +29,7 @@ process imsaMaster {
     file("${sample}_pipelineScript_blat.py"), 
     file("${sample}_pipelineScript_blast.py"), 
     file(reads) into bowtie_in
-
+    
     """
     python ${imsa_path}/master.py -i ${reads.get(0)} -j ${reads.get(1)} -p ${actions} -a 10 -o 33
 

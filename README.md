@@ -16,7 +16,7 @@ The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic S
 ## Databases and Reference Sequences
 
 # Docker Image
-**To be done
+
 
 # Configuration
 
