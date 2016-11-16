@@ -32,8 +32,8 @@ First, configure first line of every python script in the IMSA pipeline folder t
 After changing the line, edit the following variables in the `config.py` python script.
 
 | Variable | Definition |
-| :========= | :========= |
-| `SRC_DIRECTORY` | Full path of the directory that contains the `imsa` directory. | 
+| :----- | :----- |
+| `SRC_DIRECTORY` | Full path of the directory that contains the `imsa` directory. |
 | `BOWTIE2_DATABASES` | Full path to the `bowtie2` ebwt index files. |
 | `BLAT_DATABASES` | Full path to the `blat` 2bit index files. |
 | `BLAT_OOC_FILES` | Full path to the `blat`  ooc file for the database. |
