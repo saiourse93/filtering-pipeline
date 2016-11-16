@@ -1,5 +1,5 @@
-# Filtering Pipeline
-The **Filtering Pipeline** is a modified version of the [Intergrated Metagenomic Sequence Analysis](https://sourceforge.net/projects/arron-imsa/) (IMSA) pipeline, which takes reads from high throughput sequencing. Assembly pipeline for exogenous reads filtered from human RNA-seq data.
+# IMSA on Nextflow
+The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis](https://sourceforge.net/projects/arron-imsa/) (IMSA) pipeline, which takes reads from high throughput sequencing. Assembly pipeline for exogenous reads filtered from human RNA-seq data.
 
 # Dependencies
 
