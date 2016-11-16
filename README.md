@@ -39,10 +39,10 @@ After changing the line, edit the following variables in the `config.py` python 
 | `BLAT_OOC_FILES` | Full path to the `blat`  ooc file for the database. |
 | `BLAST_DATABASES` | Full path to the BLAST databases. |
 | `BLAST_TAX_DB` | Full path the BLAST taxonomy database. |
-| `PATH_TO_BOWTIE2` | 
-| `PATH_TO_BLASTN` |
-| `PATH_TO_BLAT` |
-| `PIPELINE_DIRECTORY` | 
+| `PATH_TO_BOWTIE2` | R |
+| `PATH_TO_BLASTN` | R |
+| `PATH_TO_BLAT` | R |
+| `PIPELINE_DIRECTORY` |  R |
 
 
 ## ```main.nf```
