@@ -3,7 +3,7 @@ The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic S
 
 # Dependencies
 The **IMSA on Nextflow** pipeline depends on the following:
-## Programs
+## Programs:
 1. Modified ```IMSA pipeline``` scripts (available on this repository)
 2. [```Python 2.6 - 2.7```](https://www.python.org/)
 2. [```bowtie2```](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
@@ -12,7 +12,7 @@ The **IMSA on Nextflow** pipeline depends on the following:
 5. [```nextflow```](https://www.nextflow.io/)
 5. [```Trinity```](https://github.com/trinityrnaseq/trinityrnaseq/wiki)
 
-## Databases and Reference Sequences
+## Databases and Reference Sequences:
 1. Reference genome, including:
    * ```bowtie2``` index
    * ```blat``` index (and associated ooc file)
@@ -25,10 +25,14 @@ The **IMSA on Nextflow** pipeline depends on the following:
 # Configuration
 In order to use the **IMSA on Nextflow** pipeline, the following python script of IMSA and nextflow script need to be configured with program paths, database paths and resources required for each process in the nextflow pipeline:
 ## ```config.py```
-    *
-    *
-    *
-    *
+First, configure first line (shebang) of every python script in the IMSA pipeline folder to point to the default python (2.6 or 2.7) interpreter.
+
+```
+for script in $(ls *.py); do sed -i ’s|"#!/opt/exp_soft/python27/bin/python"|"#!<path/to/python>"|g’ $script; done
+```
+
+After changing the line, edit the following variables in the ```config.py```
+
 ## ```main.nf```
 
 # Pipeline Execution
