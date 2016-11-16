@@ -33,7 +33,7 @@ After changing the line, edit the following variables in the `config.py` python 
 
 | Variable | Definition |
 | :========= | :========= |
-| `SRC_DIRECTORY` | Full path of the directory that contains the 'imsa' directory. | 
+| `SRC_DIRECTORY` | Full path of the directory that contains the `imsa` directory. | 
 | `BOWTIE2_DATABASES` | Full path to the `bowtie2` ebwt index files. |
 | `BLAT_DATABASES` | Full path to the `blat` 2bit index files. |
 | `BLAT_OOC_FILES` | Full path to the `blat`  ooc file for the database. |
@@ -42,7 +42,7 @@ After changing the line, edit the following variables in the `config.py` python 
 | `PATH_TO_BOWTIE2` | R |
 | `PATH_TO_BLASTN` | R |
 | `PATH_TO_BLAT` | R |
-| `PIPELINE_DIRECTORY` |  R |
+| `PIPELINE_DIRECTORY` | R |
 
 
 ## ```main.nf```
