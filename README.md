@@ -2,22 +2,34 @@
 The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis (IMSA)](https://sourceforge.net/projects/arron-imsa/) metagenomics pipeline developed by [Aaron Lab](http://dermatology.ucsf.edu/arronlab/Arron_Lab.html). The IMSA pipeline takes as input reads from high throughput sequencing and filters out exogeneous sequences in a host-genomic background. Assembly pipeline for exogenous reads filtered from human RNA-seq data.
 
 # Dependencies
-The pipeline depends on the following:
+The **IMSA on Nextflow** pipeline depends on the following:
 ## Programs
 1. Modified ```IMSA pipeline``` scripts (available on this repository)
-2. ```Python```
-2. ```bowtie2```
-3. ```blat```
-4. NCBI-BLAST+ ```blastn```
-5. ```nextflow``` 
-5. [```trinity```](https://github.com/trinityrnaseq/trinityrnaseq/wiki)
+2. [```Python 2.6 - 2.7```](https://www.python.org/)
+2. [```bowtie2```](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
+3. [```blat```](http://hgdownload.cse.ucsc.edu/downloads.html)
+4. [```blastn``` (NCBI-BLAST+ )](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
+5. [```nextflow```](https://www.nextflow.io/)
+5. [```Trinity```](https://github.com/trinityrnaseq/trinityrnaseq/wiki)
 
 ## Databases and Reference Sequences
+1. Reference genome, including:
+   * ```bowtie2``` index
+   * ```blat``` index (and associated ooc file)
+   * ```blastn``` index
+2. Comprehensive database for sequence characterization (nr database from NCBI)
 
 # Docker Image
-
+*Coming soon...*
 
 # Configuration
+In order to use the **IMSA on Nextflow** pipeline, the following python script of IMSA and nextflow script need to be configured with program paths, database paths and resources required for each process in the nextflow pipeline:
+## ```config.py```
+    *
+    *
+    *
+    *
+## ```main.nf```
 
 # Pipeline Execution
 
