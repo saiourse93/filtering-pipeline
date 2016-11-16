@@ -1,7 +1,8 @@
 # IMSA on Nextflow
-The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis](https://sourceforge.net/projects/arron-imsa/) (IMSA) pipeline, which takes reads from high throughput sequencing. Assembly pipeline for exogenous reads filtered from human RNA-seq data.
+The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis (IMSA) pipeline](https://sourceforge.net/projects/arron-imsa/) which takes as input reads from high throughput sequencing and filters out exogeneous sequences in a host-genomic background. Assembly pipeline for exogenous reads filtered from human RNA-seq data.
 
 # Dependencies
+The pipeline depends
 
 ## IMSA (Intergrated Metagenomics Sequence Analysis)
 
