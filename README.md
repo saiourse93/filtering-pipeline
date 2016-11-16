@@ -33,17 +33,17 @@ After changing the line, edit the following variables in the `config.py` python 
 
 | Variable | Definition |
 | -------- | ---------- |
-| `SRC_DIRECTORY` | 
-| `BOWTIE_DATABASES` |
-| `BOWTIE2_DATABASES` |
-| `BLAT_DATABASES` |
-| `BLAT_OOC_FILES` |
-| `BLAST_DATABASES` |
-| `BLAST_TAX_DB` |
-| `PATH_TO_BOWTIE2` |
-| `PATH_TO_BLASTN` |
-| `PATH_TO_BLAT` |
-| `PIPELINE_DIRECTORY` | 
+|: `SRC_DIRECTORY` | 
+|: `BOWTIE_DATABASES` |
+|: `BOWTIE2_DATABASES` |
+|: `BLAT_DATABASES` |
+|: `BLAT_OOC_FILES` |
+|: `BLAST_DATABASES` |
+|: `BLAST_TAX_DB` |
+|: `PATH_TO_BOWTIE2` |
+|: `PATH_TO_BLASTN` |
+|: `PATH_TO_BLAT` |
+|: `PIPELINE_DIRECTORY` | 
 
 
 ## ```main.nf```
