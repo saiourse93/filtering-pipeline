@@ -5,11 +5,12 @@ The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic S
 The pipeline depends on the following:
 ## Programs
 1. Modified ```IMSA pipeline``` scripts (available on this repository)
-2. Python
-2. Bowtie
-3. BLAT
-4. NCBI-BLAST+
-5. Trinity
+2. ```Python```
+2. ```bowtie2```
+3. ```blat```
+4. NCBI-BLAST+ ```blastn```
+5. ```nextflow``` 
+5. [```trinity```](https://github.com/trinityrnaseq/trinityrnaseq/wiki)
 
 ## Databases and Reference Sequences
 
