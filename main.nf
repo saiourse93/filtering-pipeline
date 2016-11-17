@@ -11,8 +11,7 @@ data_path = params.data
 actions = params.actions
 out_path.mkdir()
 
-read_pair = Channel.fromFilePairs("${data_path}/caskiSubset_*_R{1,2}.fq", type: 'file')
-//read_pair = Channel.fromFilePairs("${data_path}/C{ASE,TRL}*R{1,2}.fastq", type: 'file')
+read_pair = Channel.fromFilePairs("${data_path}/*_R{1,2}.fastq", type: 'file')
 
 process imsaMaster {
     cache true

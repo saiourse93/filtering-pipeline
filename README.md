@@ -27,8 +27,6 @@ The **IMSA on Nextflow** pipeline depends on the following programs and database
 In order to use the **IMSA on Nextflow** pipeline, the following `config.py` python script of IMSA has to be configured with program and database paths required by IMSA to run:
 ## `config.py`
 
-After changing the line, edit the following variables in the `config.py` python script.
-
 | Variable | Definition |
 | :----- | :----- |
 | `SRC_DIRECTORY` | Full path of the directory that contains the `imsa` directory. |
@@ -41,15 +39,17 @@ After changing the line, edit the following variables in the `config.py` python 
 | `PATH_TO_BLASTN` | Full path to your `blastn` executable (use program name if installed in you path)|
 | `PATH_TO_BLAT` | Full path to yout `blat` executable (use program name if installed in you path)|
 
-After configuring the `config.py` script of IMSA, change the first line of every `python` script in the IMSA pipeline folder to point to the default `python` (2.6 or 2.7) interpreter. Using terminal, "`cd`" into the `imsa` folder packaged with this **IMSA on Nextflow** pipeline and run the following command (replace </path/to/python> with the full path to your `python`):
+After configuring the `config.py` script of IMSA, change the first line of every `python` script in the IMSA pipeline folder to point to the default `python` (2.6 or 2.7) interpreter using the following command on terminal (replace </path/to/python> with the full path to your `python`):
 
 ````
-find ./imsa -iname *.py -exec sed '1 s|^.*|"#!<path/to/your/python>"|' {} \;
+find ./imsa -iname *.py -exec sed -i 's|^#!.*python$|#!<path/to/your/python>|' {} \;
 ````
-
-
-## ```main.nf```
 
 # Pipeline Execution
+Assuming you have a folder `/home/myhome/fasqdata` in you machine with a set of paired-end reads in `fastq` format, the IMSA on Nextflow pipwline can be executed as follows:
+
+```sh
+nextflow run main.nf --data /home/myhome/fastqdata --actions actions.txt --out /home/myhome/output
+```
 
 # Pipeline Output
