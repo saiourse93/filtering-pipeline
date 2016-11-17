@@ -53,9 +53,9 @@ $ nextflow run main.nf --data /home/myhome/fastqdata --actions actions.txt --out
 ```
 
 Parameters:
-`--imsa`: Optional parameter - specifies the loction of the `imsa` folder.
-`--data`: Full path to the directory with reads to be analysed.
-`--actions`: Action file containing all the actions to be taken in the analysis.
-`--out`: Output directory.
+* `--imsa`: Optional parameter - specifies the loction of the `imsa` folder.
+* `--data`: Full path to the directory with reads to be analysed.
+* `--actions`: Action file containing all the actions to be taken in the analysis.
+* `--out`: Output directory.
 
 # Pipeline Output
