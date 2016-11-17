@@ -44,9 +44,9 @@ After changing the line, edit the following variables in the `config.py` python 
 After configuring the `config.py` script of IMSA, change the first line of every `python` script in the IMSA pipeline folder to point to the default `python` (2.6 or 2.7) interpreter. Using terminal, "`cd`" into the `imsa` folder packaged with this **IMSA on Nextflow** pipeline and run the following command (replace </path/to/python> with the full path to your `python`):
 
 ````
-for script in $(ls *.py) \
-do \
-    sed -i ’s|"#!/opt/exp_soft/python27/bin/python"|"#!<path/to/your/python>"|g’ $script \
+for script in $(ls *.py)
+do
+    sed -i ’s|"#!/opt/exp_soft/python27/bin/python"|"#!<path/to/your/python>"|g’ $script
 done
 ````
 
