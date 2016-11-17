@@ -42,14 +42,14 @@ In order to use the **IMSA on Nextflow** pipeline, the following `config.py` pyt
 After configuring the `config.py` script of IMSA, change the first line of every `python` script in the IMSA pipeline folder to point to the default `python` (2.6 or 2.7) interpreter using the following command on terminal (replace </path/to/python> with the full path to your `python`):
 
 ````
-find ./imsa -iname *.py -exec sed -i 's|^#!.*python$|#!<path/to/your/python>|' {} \;
+$ find ./imsa -iname *.py -exec sed -i 's|^#!.*python$|#!<path/to/your/python>|' {} \;
 ````
 
 # Pipeline Execution
 Assuming you have a folder `/home/myhome/fasqdata` in you machine with a set of paired-end reads in `fastq` format, the IMSA on Nextflow pipwline can be executed as follows:
 
-```sh
-nextflow run main.nf --data /home/myhome/fastqdata --actions actions.txt --out /home/myhome/output
+```bash
+$ nextflow run main.nf --data /home/myhome/fastqdata --actions actions.txt --out /home/myhome/output
 ```
 
 # Pipeline Output
