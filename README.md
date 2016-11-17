@@ -1,7 +1,5 @@
 # IMSA on Nextflow
-The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis (IMSA)](https://sourceforge.net/projects/arron-imsa/) metagenomics pipeline developed by [Aaron Lab](http://dermatology.ucsf.edu/arronlab/Arron_Lab.html). Through user-defined databases and applications, the IMSA pipeline takes as input reads from high throughput sequencing and filters out the host reads. The remaining reads are then characterised using a comprehensive nucleotide and taxonomy databases, allowing for the identification of microbial/pathogen genomes within host organisms.
-
-The **IMSA on Nextflow** pipeline presented here is a mo
+The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis (IMSA)](https://sourceforge.net/projects/arron-imsa/) metagenomics pipeline developed by [Aaron Lab](http://dermatology.ucsf.edu/arronlab/Arron_Lab.html). Through user-defined databases and applications, the IMSA pipeline takes as input reads from high throughput sequencing and filters out the host reads. The remaining reads are then characterised using a comprehensive nucleotide and taxonomy databases, allowing for the identification of microbial/pathogen genomes within host organisms. The **IMSA on Nextflow** pipeline presented has been modified to take advantage of todays powerful computing clusters, which allows for each application in the IMSA pipeline to run with user specified resources. This is particulalry advantageous for when analysing a large number of samples as the jobs are submitted in parallel to each other, thus reducing the overall runtime.
 
 # Dependencies
 The **IMSA on Nextflow** pipeline depends on the following programs and databases:
@@ -53,5 +51,11 @@ Assuming you have a folder `/home/myhome/fasqdata` in you machine with a set of 
 ```bash
 $ nextflow run main.nf --data /home/myhome/fastqdata --actions actions.txt --out /home/myhome/output
 ```
+
+Parameters:
+`--imsa`: Optional parameter - specifies the loction of the `imsa` folder.
+`--data`: Full path to the directory with reads to be analysed.
+`--actions`: Action file containing all the actions to be taken in the analysis.
+`--out`: Output directory.
 
 # Pipeline Output
