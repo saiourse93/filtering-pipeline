@@ -37,9 +37,9 @@ After changing the line, edit the following variables in the `config.py` python 
 | `BLAT_OOC_FILES` | Full path to the `blat`  ooc file for the database. |
 | `BLAST_DATABASES` | Full path to the BLAST databases. |
 | `BLAST_TAX_DB` | Full path the BLAST taxonomy database. |
-| `PATH_TO_BOWTIE2` | Full path to your `bowtie2` executable |
-| `PATH_TO_BLASTN` | Full path to your `blastn` executable |
-| `PATH_TO_BLAT` | Full path to yout `blat` executable |
+| `PATH_TO_BOWTIE2` | Full path to your `bowtie2` executable (use program name if installed in you path). |
+| `PATH_TO_BLASTN` | Full path to your `blastn` executable (use program name if installed in you path)|
+| `PATH_TO_BLAT` | Full path to yout `blat` executable (use program name if installed in you path)|
 
 After configuring the `config.py` script of IMSA, change the first line of every `python` script in the IMSA pipeline folder to point to the default `python` (2.6 or 2.7) interpreter. Using terminal, "`cd`" into the `imsa` folder packaged with this **IMSA on Nextflow** pipeline and run the following command (replace </path/to/python> with the full path to your `python`):
 
