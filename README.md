@@ -1,5 +1,7 @@
 # IMSA on Nextflow
-The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis (IMSA)](https://sourceforge.net/projects/arron-imsa/) metagenomics pipeline developed by [Aaron Lab](http://dermatology.ucsf.edu/arronlab/Arron_Lab.html). The IMSA pipeline takes as input reads from high throughput sequencing and filters out exogeneous sequences in a host-genomic background. Assembly pipeline for exogenous reads filtered from human RNA-seq data.
+The **IMSA on Nextflow** is a modified version of the [Intergrated Metagenomic Sequence Analysis (IMSA)](https://sourceforge.net/projects/arron-imsa/) metagenomics pipeline developed by [Aaron Lab](http://dermatology.ucsf.edu/arronlab/Arron_Lab.html). Through user-defined databases and applications, the IMSA pipeline takes as input reads from high throughput sequencing and filters out the host reads. The remaining reads are then characterised using a comprehensive nucleotide and taxonomy databases, allowing for the identification of microbial/pathogen genomes within host organisms.
+
+The **IMSA on Nextflow** pipeline presented here is a mo
 
 # Dependencies
 The **IMSA on Nextflow** pipeline depends on the following programs and databases:
@@ -43,7 +45,7 @@ After configuring the `config.py` script of IMSA, change the first line of every
 
 ````
 $ find ./imsa -iname *.py -exec sed -i 's|^#!.*python$|#!<path/to/your/python>|' {} \;
-````
+```
 
 # Pipeline Execution
 Assuming you have a folder `/home/myhome/fasqdata` in you machine with a set of paired-end reads in `fastq` format, the IMSA on Nextflow pipwline can be executed as follows:
