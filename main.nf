@@ -1,3 +1,5 @@
+
+PHELELANI
 #!/usr/bin/env nextflow
 
 params.imsa = "$PWD/imsa" // The IMSA pipeline will come packaged! User will edit the config file.
@@ -14,6 +16,7 @@ out_path.mkdir()
 read_pair = Channel.fromFilePairs("${data_path}/caskiSubset_*_R{1,2}.fq", type: 'file')
 //read_pair = Channel.fromFilePairs("${data_path}/C{ASE,TRL}*R{1,2}.fastq", type: 'file')
 
+//Initial pre-processing of the data before running the pipeline
 process imsaMaster {
     cache true
     scratch true
@@ -44,6 +47,7 @@ process imsaMaster {
     """
 }
 
+// Process 1: Mapping of reads to the reference genome
 process runBowtie {
     cache true
     scratch true
@@ -70,6 +74,7 @@ process runBowtie {
     """
 }
 
+// Process 2: 
 process runBlat {
     cache true
     scratch true
@@ -92,6 +97,7 @@ process runBlat {
     """
 }
 
+// Process 3:
 process runBlastRef {
     cache true
     scratch true
@@ -116,6 +122,7 @@ process runBlastRef {
     """
 }
 
+// Process 4:
 process getFastq {
     cache true
     scratch true
@@ -142,6 +149,7 @@ process getFastq {
     """
 }
 
+// Process 5:
 process runTrinity {
     cache true
     scratch true
@@ -164,6 +172,7 @@ process runTrinity {
     """
 }
 
+// Process 6:
 process runBlastNt {
     cache true
     scratch true
@@ -186,6 +195,7 @@ process runBlastNt {
     """
 }
 
+// Process 7:
 process runPostProcess {
     cache true
     scratch true
@@ -208,6 +218,7 @@ process runPostProcess {
     """
 }
 
+// On completion
 workflow.onComplete {
     println """
     Pipeline execution summary
