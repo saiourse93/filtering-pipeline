@@ -1,5 +1,3 @@
-
-PHELELANI
 #!/usr/bin/env nextflow
 
 params.imsa = "$PWD/imsa" // The IMSA pipeline will come packaged! User will edit the config file.
