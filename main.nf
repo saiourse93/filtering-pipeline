@@ -13,8 +13,7 @@ data_path = params.data
 actions = params.actions
 out_path.mkdir()
 
-read_pair = Channel.fromFilePairs("${data_path}/caskiSubset_*_R{1,2}.fq", type: 'file')
-//read_pair = Channel.fromFilePairs("${data_path}/C{ASE,TRL}*R{1,2}.fastq", type: 'file')
+read_pair = Channel.fromFilePairs("${data_path}/*_R{1,2}.fastq", type: 'file')
 
 //Initial pre-processing of the data before running the pipeline
 process imsaMaster {
@@ -32,7 +31,7 @@ process imsaMaster {
     file("${sample}_pipelineScript_blat.py"), 
     file("${sample}_pipelineScript_blast.py"), 
     file(reads) into bowtie_in
-
+    
     """
     python ${imsa_path}/master.py -i ${reads.get(0)} -j ${reads.get(1)} -p ${actions} -a 10 -o 33
 
