@@ -3,7 +3,7 @@
 params.imsa = "$PWD/imsa" // The IMSA pipeline will come packaged! User will edit the config file.
 params.data = "/spaces/phelelani/ssc_data/data_trimmed/inflated" // User to provide folder with own data. 
 params.actions = "$PWD/actions.txt" // Action file will come packaged. User will edit.
-params.out = "$HOME/filtering_results"
+params.out = "/spaces/phelelani/ssc_data/filtering/filtering_results"
 
 imsa_path = params.imsa
 out_path = file(params.out)
@@ -12,23 +12,23 @@ actions = params.actions
 out_path.mkdir()
 
 read_pair = Channel.fromFilePairs("${data_path}/*_R{1,2}.fastq", type: 'file')
+//read_pair = Channel.fromFilePairs("${data_path}/caskiSubset_01_R{1,2}.fq", type: 'file')
+//read_pair = Channel.fromFilePairs("${data_path}/CASE_01_ARM_001_R{1,2}.fastq", type: 'file')
 
 //Initial pre-processing of the data before running the pipeline
-process imsaMaster {
+process imsaMaster_process {
     cache true
-    scratch true
+    scratch '$HOME/tmp'
     tag { sample }
-    publishDir "$out_path/${sample}", mode: 'symlink', overwrite: true
-    
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path/${sample}", mode: 'copy', overwrite: false, pattern: '*.py'
+
     input:
     set val(sample), file(reads) from read_pair
     
     output:
-    set val(sample), 
-    file("${sample}_pipelineScript_bowtie2.py"), 
-    file("${sample}_pipelineScript_blat.py"), 
-    file("${sample}_pipelineScript_blast.py"), 
-    file(reads) into bowtie_in
+    set val(sample), file("${sample}_pipelineScript_bowtie2.py"), file("${sample}_pipelineScript_blat.py"), file("${sample}_pipelineScript_blast.py"), file(reads) into bowtie_in
     
     """
     python ${imsa_path}/master.py -i ${reads.get(0)} -j ${reads.get(1)} -p ${actions} -a 10 -o 33
@@ -45,26 +45,24 @@ process imsaMaster {
 }
 
 // Process 1: Mapping of reads to the reference genome
-process runBowtie {
+process runBowtie_process {
     cache true
-    scratch true
+    scratch '$HOME/tmp'
     executor 'pbs'
     queue 'WitsLong'
     cpus 11
     memory '50 GB'
     time '50h'
     tag { sample }
-    publishDir "$out_path/${sample}", mode: 'symlink', overwrite: true
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path/${sample}", mode: 'copy', overwrite: false, pattern: '*{.*.fq,.sam}'
     
     input:
     set val(sample), file(bowtie_script), file(blat_script), file(blast_script), file(reads) from bowtie_in
     
     output:
-    set val(sample),
-    file(blat_script),
-    file(blast_script),
-    file(reads),
-    file("${sample}*{.fq,.sam}") into blat_in
+    set val(sample), file(blat_script), file(blast_script), file(reads), file("${sample}*{.fq,.sam}") into blat_in
     
     """
     python ${bowtie_script.getName()}
@@ -72,16 +70,18 @@ process runBowtie {
 }
 
 // Process 2: 
-process runBlat {
+process runBlat_process {
     cache true
-    scratch true
+    scratch '$HOME/tmp'
     executor 'pbs'
     queue 'WitsLong'
     cpus 1
     memory '20 GB'
     time '50h'
     tag { sample }
-    publishDir "$out_path/${sample}", mode: 'symlink', overwrite: true
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path/${sample}", mode: 'copy', overwrite: false, pattern: '*{.psl,.fa}'
     
     input:
     set val(sample), file(blat_script), file(blast_script), file(reads), file(bowtie_results) from blat_in
@@ -95,16 +95,18 @@ process runBlat {
 }
 
 // Process 3:
-process runBlastRef {
+process runBlastRef_process {
     cache true
-    scratch true
+    scratch '$HOME/tmp'
     executor 'pbs'
     queue 'WitsLong'
     cpus 11
     memory '200 GB'
     time '50h'
     tag { sample }
-    publishDir "$out_path/${sample}", mode: 'symlink', overwrite: true
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path/${sample}", mode: 'copy', overwrite: false, pattern: '*{.bln,.fa}'
     
     input:
     set sample, file(blast_script), file(reads), file(blat_results) from blast_in
@@ -120,22 +122,25 @@ process runBlastRef {
 }
 
 // Process 4:
-process getFastq {
+process getFastq_process {
     cache true
-    scratch true
+    scratch '$HOME/tmp'
     executor 'pbs'
     queue 'WitsLong'
     cpus 1
     memory '5 GB'
     time '50h'
     tag { sample }
-    publishDir "$out_path/${sample}", mode: 'symlink', overwrite: true
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path/${sample}", mode: 'copy', overwrite: false
     
     input:
     set sample, file(reads), file(blast_results) from getFastq_in
     
     output:
-    set sample, file("${sample}_filtered_R{1,2}.fq") into trinity_in
+    set sample,
+    file("${sample}_filtered_R{1,2}.fq") into trinity_in
     
     """
     grep '>' ${(blast_results as List).findAll { it =~ '.fa' }.max()} | sort -u > ${sample}_unique_names
@@ -147,19 +152,22 @@ process getFastq {
 }
 
 // Process 5:
-process runTrinity {
+process runTrinity_process {
     cache true
-    scratch true
+    scratch '$HOME/tmp'
     executor 'pbs'
     queue 'WitsLong'
     cpus 11
     memory '200 GB'
     time '50h'
     tag { sample }
-    publishDir "$out_path/${sample}", mode: 'symlink', overwrite: true
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path/${sample}", mode: 'copy', overwrite: false
     
     input:
-    set sample, file(reads) from trinity_in
+    set sample, 
+    file(reads) from trinity_in
     
     output:
     set sample, "trinity_${sample}/Trinity.fasta" into assemblies
@@ -170,16 +178,18 @@ process runTrinity {
 }
 
 // Process 6:
-process runBlastNt {
+process runBlastNt_process {
     cache true
-    scratch true
+    scratch '$HOME/tmp'
     executor 'pbs'
     queue 'WitsLong'
     cpus 11
     memory '200 GB'
     time '50h'
     tag { sample }
-    publishDir "$out_path/${sample}", mode: 'symlink', overwrite: true
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path/${sample}", mode: 'copy', overwrite: false
     
     input:
     set sample, trinity_assembly from assemblies
@@ -193,16 +203,18 @@ process runBlastNt {
 }
 
 // Process 7:
-process runPostProcess {
+process runPostProcess_process {
     cache true
-    scratch true
+    scratch '$HOME/tmp'
     executor 'pbs'
     queue 'WitsLong'
     cpus 1
     memory '20 GB'
     time '50h'
     tag { sample }
-    publishDir "$out_path/${sample}", mode: 'symlink', overwrite: true
+    stageInMode 'symlink'
+    stageOutMode 'rsync'
+    publishDir "$out_path/${sample}", mode: 'copy', overwrite: false
     
     input:
     set sample, file(hits) from blast_hits
@@ -228,3 +240,4 @@ workflow.onComplete {
     Error report: ${workflow.errorReport ?: '-'}
     """
 }
+
