@@ -198,7 +198,7 @@ process runBlastNt_process {
     set sample, "${sample}_blast_hits.bln" into blast_hits
     
     """
-    blastn -query $trinity_assembly -db pathogens_32 -evalue 1e-15 -outfmt 6 -num_alignments 200 > ${sample}_blast_hits.bln
+    blastn -query $trinity_assembly -db nt -evalue 1e-15 -outfmt 6 -num_alignments 200 > ${sample}_blast_hits.bln
     """
 }
 
